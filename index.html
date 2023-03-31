@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+
+<link rel="icon" href="images/medbook.png"/>
+<title>MedBook MIS</title>
+
+<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no, maximum-scale=1, height=device-height" />
+
+<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css">
+<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css">
+
+<style type="text/css">
+body,td,th {
+	color: #000000;
+}
+</style>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+
+<script src="js/jquery.min.js"></script>
+
+
+<script src="js/jquery-3.0.0.js" type="text/javascript"></script>
+<script src="js/jquery-ui.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function () {
+	//Disable cut copy paste
+	$('body').bind('cut copy paste', function (e) {
+		e.preventDefault();
+	});
+	
+	//Disable mouse right click
+	$("body").on("contextmenu",function(e){
+		return false;
+	});
+});
+
+//login process///////////////////////////////////////////////////////////////////
+
+$( document ).ready(function()
+{
+
+    $("#cmdEnter").click(function()
+	{
+        var txtUserName = $("#txtUserName").val().trim();
+        var txtPassWord = $("#txtPassWord").val().trim();
+		
+		var dataString = 'txtUserName='+txtUserName+'&txtPassWord='+txtPassWord;
+		
+		
+		$.ajax({
+		type: "POST",
+		url: "data_login.php",
+		data: dataString,
+		cache: true,
+		beforeSend: function()
+		{
+			document.getElementById("cmdEnter").value="connecting...";
+		},
+
+            success: function(data)
+			{
+				if(data=='true')
+				{
+					window.location = "navigation.php";
+				}
+				else
+				{
+					$( "#login" ).effect( "shake" );
+					
+					document.getElementById("divWrongUsernamePass").hidden = false;
+					
+					document.getElementById("cmdEnter").value="Login";
+				}
+			}
+			
+		})
+        
+    })
+	
+	
+///////////////////////////////////////////////////////////////////////////////	
+	
+	$("#cmdReset").click(function()
+	{
+		$("#txtUserName").val("");
+		$("#txtPassWord").val("");
+	})
+	
+///////////////////////////////////////////////////////////////////////////////
+
+})
+
+
+
+
+</script>
+
+<style>
+#header
+{
+	position:fixed;
+	left:0px;
+	right:0px;
+	top:0px;
+}
+</style>
+
+<style type="text/css">
+body,td,th {
+	color: #000000;
+}
+a:link {
+	color: #0000FF;
+}
+a:visited {
+	color: #00F;
+}
+a:hover {
+	color: #FF00FF;
+}
+a:active {
+	color: #0FF;
+}
+.borderdesigner
+{
+	margin-top: 10px;
+	border: 1px solid transparent;
+	border-radius: 9px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	height: 32px;
+	outline: none;
+	box-shadow: 0 6px 30px rgba(0, 0, 0, 0.9);
+}
+</style>
+
+
+</head>
+
+<body style="font-family:Times, Tahoma, Geneva, sans-serif;">
+<div align="left" style="background-image:url(../images/header.jpg);background-repeat:no-repeat;background-size:cover;" id="header">
+	<table width="100%" style="border:none" border="0">
+  		<tr>
+    		<td width="41%"><img src="images/medbook.png" width="50%" /></td>
+            <td align="right">
+            
+            </td>
+    	</tr>
+	</table>
+</div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<br />
+<br />
+
+
+
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+   
+<h4 align="center"><u>Please key in your User ID and Password to login</u></h4>
+
+
+<div class="container">
+<div id='login'>
+  
+  <table border="0" align="center" class="borderdesigner">
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    
+    <tr>
+      <td>&nbsp;</td>
+      <td><div align="right" class="style3"><strong><font color="#FF0000" size="+2">*</font>User ID:&nbsp;&nbsp;&nbsp;</strong></div></td>
+      <td>
+        <div align="center">
+        <input type="text" name="txtUserName" id="txtUserName" placeholder="Email or Phone No. Used during registration" class="span4" style="color:#000000;" required />
+        </div>
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+    
+    <tr>
+      <td>&nbsp;</td>
+    	<td>&nbsp;</td>
+    	<td>&nbsp;</td>
+    	<td>&nbsp;</td>
+    </tr>
+    
+    <tr>
+      <td>&nbsp;</td>
+      <td>
+      	<div align="right" class="style2">
+        	<p class="style3"><strong><font color="#FF0000" size="+2">*</font>Password:&nbsp;&nbsp;&nbsp;</strong></p>
+      	</div>
+      </td>
+      <td><div align="center">
+      <input type="password" name="txtPassWord" id="txtPassWord" placeholder="Password you submitted during registration" class="span4" style="color:#000000;" required />
+      
+      </div></td>
+      <td>&nbsp;</td>
+    </tr>
+    
+	<tr>
+		<td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td colspan="4" align="center">
+        <input type="submit" name="cmdEnter" id="cmdEnter" value="Login" style="width:100px;height:50px;font-family:Times, Tahoma, Geneva, sans-serif;" class="btn-success search-query"/> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="reset" name="cmdReset" id="cmdReset" value="Reset" style="width:100px;height:50px;font-family:Times, Tahoma, Geneva, sans-serif;" class="btn-warning search-query"/>
+      </td>
+    </tr>
+    
+    <tr>
+      <td colspan="4" align="center">
+      
+      	<p align="center" style="font-weight:bold;font-size:12px;font-family:Times, Tahoma, Geneva, sans-serif;">
+			<b><a href="register.php" style="color:#000028;">Register</a>&nbsp;||&nbsp;<a href="forgot-password.php">Forgot Password</a>&nbsp;</b>
+		</p>
+        
+      </td>
+    </tr>
+  </table>
+
+
+</div>
+</div>
+
+<br />
+
+<br />
+
+<div id="divWrongUsernamePass" align="center" hidden="hidden"><b style='background:red;Color:#000000;'>Wrong username/password please register if new or click on forgot password</b></div>
+
+
+</body>
+</html>
